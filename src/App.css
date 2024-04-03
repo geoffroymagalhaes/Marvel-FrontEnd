@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+a {
+  color: inherit; /* Inherit text color from parent */
+
+  text-decoration: none;
+}
+button:hover {
+  cursor: pointer;
+}
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+/* ------------ */
+/* ---header--- */
+.header {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+  background-color: #202020;
+}
+
+.video-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+video {
+  min-width: 100%;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+.headerLogo {
+  display: flex;
+  justify-content: center;
+}
+.headerLogo img {
+  width: 150px;
+  padding: 20px 0;
+}
+.headerLink {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  background-color: #202020;
+}
+.headerLink button {
+  color: white;
+  background-color: #202020;
+  border: none;
+}
+/* ----home----- */
+.charactersContainer {
+  border: 3px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.characterCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid red;
+  width: calc((100% - 40px) / 4);
+  background-color: #202020;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 400px;
+  border-radius: 5px;
+}
+.characterContainer img {
+  width: 100%;
+}
+.characterContainer h1 {
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+}
+.characterContainer h2 {
+  color: white;
+  font-size: 12px;
+  padding: 10px;
+}
