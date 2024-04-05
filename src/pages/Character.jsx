@@ -4,18 +4,18 @@ import axios from "axios";
 
 const Character = () => {
   const params = useParams();
-  console.log(params);
+  // console.log(params);
 
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("useEffect");
+    // console.log("useEffect");
     const fetchData = async () => {
       const response = await axios.get(
         `http://localhost:3000/comics/character/${params.id}`
       );
-      console.log(response.data);
+      // console.log(response.data);
       setData(response.data);
       setLoading(false);
     };

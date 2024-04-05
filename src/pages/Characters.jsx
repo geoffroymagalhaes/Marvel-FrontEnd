@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+import LikeImg from "../assets/img/noun.png";
 
 const Characters = () => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [characterTab, setCharacterTab] = useState([]);
+  console.log(characterTab);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +28,13 @@ const Characters = () => {
       }
     };
     fetchData();
-  }, [search, page]);
+  }, [search, page, characterTab]);
+  // const id =
+  // const handleClick = ({character._id})=>{
+  //     if(!characterTab.includes(character._id)){
+  //       setCharacterTab([...characterTab,character._id])
+  //     }
+  //    }
 
   return isLoading ? (
     <p>Loading...</p>
@@ -63,6 +74,30 @@ const Characters = () => {
                 })`,
               }}
             >
+              <div
+                onClick={() => {
+                  const newCharacterTab = [...characterTab];
+
+                  newCharacterTab.push(character._id);
+                  setCharacterTab(newCharacterTab);
+                  Cookies.set("characterId", JSON.stringify(characterTab), {
+                    expires: 15,
+                  });
+
+                  // Permet de créer ou de modifier la valeur d'un cookie et de définir une date d'expiration
+                }}
+                className="likeImg"
+              >
+                <button>
+                  <img
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    src={LikeImg}
+                    alt=""
+                  />
+                </button>
+              </div>
               <div className="bottomCard">
                 {/* <h2>{character.description}</h2> */}
                 <h1>{character.name}</h1>

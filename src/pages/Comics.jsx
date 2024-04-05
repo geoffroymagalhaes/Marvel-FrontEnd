@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
+
+import LikeImg from "../assets/img/noun.png";
 
 const Comics = () => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+
+  const favComicCookie = Cookies.get("favComic");
+  const [favComicTab, setFavComicTab] = useState(
+    favComicCookie ? favComicCookie : null
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,22 +22,32 @@ const Comics = () => {
           ` http://localhost:3000/comics/?title=${search}&page=${page}`
         );
         console.log(search);
-        // console.log(response.data);
+        console.log(response.data.results);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchData();
-  }, [search, page]);
 
+    fetchData();
+  }, [search, page, favComicTab]);
+
+  const handleFavComic = (id) => {
+    if (!favComicCookie) {
+      Cookies.set("favComic", id, { expires: 7 });
+    } else {
+      Cookies.set("favComic", favComicCookie + "," + id, { expires: 7 });
+      setFavComicTab(favComicCookie);
+    }
+  };
+  console.log(favComicTab);
   return isLoading ? (
     <p>Loading...</p>
   ) : (
     <section>
-      <div className="heroCharacters">
-        <div className="heroBackground">
+      <div className="comicCharacters">
+        <div className="comicBackground">
           <h1>MARVEL COMICS</h1>
           <h2>
             Dive into the vibrant universe of comics, where every panel tells a
@@ -61,12 +79,21 @@ const Comics = () => {
                 })`,
               }}
             >
+              <div
+                onClick={() => {
+                  handleFavComic(comic._id);
+                  // Permet de créer ou de modifier la valeur d'un cookie et de définir une date d'expiration
+                }}
+                className="likeImg"
+              >
+                <img src={LikeImg} alt="" />
+              </div>
               {/* <img
                 src={comic.thumbnail.path + "/portrait_fantastic.jpg"}
                 alt=""
               /> */}
-              <h1>{comic.title}</h1>
-              <h2>{comic.description}</h2>
+              {/* <h1>{comic.title}</h1>
+              <h2>{comic.description}</h2> */}
             </article>
           );
         })}
