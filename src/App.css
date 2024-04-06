@@ -285,3 +285,30 @@ video {
 .heroComicsCharacterBackground h2 {
   margin: 0 20px;
 }
+/* ----------------------------- */
+/* ---favorites--- */
+.heroFavorites {
+  height: 400px;
+}
+.heroFavoritesBackground {
+  background-color: #202020;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  gap: 70px;
+}
+.heroFavoritesBackground h1 {
+  font-size: 50px;
+  font-weight: bold;
+  letter-spacing: 20px;
+  text-shadow: 10px 10px 5px black;
+}
+.heroFavoritesBackground h2 {
+  margin: 0 20px;
+}

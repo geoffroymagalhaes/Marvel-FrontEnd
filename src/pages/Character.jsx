@@ -39,8 +39,6 @@ const Character = ({ comic }) => {
           <h2>{data.description}</h2>
         </div>
       </div>
-      <h1></h1>
-      <h2></h2>
 
       {data.comics.map((comic) => {
         return (

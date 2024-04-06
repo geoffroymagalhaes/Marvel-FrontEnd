@@ -5,16 +5,24 @@ import Cookies from "js-cookie";
 
 import LikeImg from "../assets/img/noun.png";
 
-const Characters = () => {
+const Characters = ({ favCharacCookie, favCharacTab, setFavCharacTab }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  const favCharacCookie = Cookies.get("favCharac");
-  const [favCharacTab, setFavCharacTab] = useState(
-    favCharacCookie ? favCharacCookie : null
-  );
+  // const favCharacCookie = Cookies.get("favCharac");
+  // const [favCharacTab, setFavCharacTab] = useState(
+  //   favCharacCookie ? favCharacCookie : null
+  // );
+  const handleFavCharac = (id) => {
+    if (!favCharacCookie) {
+      Cookies.set("favCharac", id, { expires: 7 });
+    } else {
+      Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
+      setFavCharacTab(favCharacCookie);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,14 +41,7 @@ const Characters = () => {
     fetchData();
   }, [search, page, favCharacTab]);
 
-  const handleFavComic = (id) => {
-    if (!favCharacCookie) {
-      Cookies.set("favCharac", id, { expires: 7 });
-    } else {
-      Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
-      setFavCharacTab(favCharacCookie);
-    }
-  };
+  console.log(favCharacCookie);
 
   // const id =
   // const handleClick = ({character._id})=>{
@@ -92,11 +93,11 @@ const Characters = () => {
                   {/* <h2>{character.description}</h2> */}
                   <h1>{character.name}</h1>
                 </div>
-              </Link>{" "}
+              </Link>
               <button
                 className="likeImg"
                 onClick={() => {
-                  handleFavComic(character._id);
+                  handleFavCharac(character._id);
                 }}
               >
                 <img src={LikeImg} alt="" />

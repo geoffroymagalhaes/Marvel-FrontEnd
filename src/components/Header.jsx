@@ -25,7 +25,7 @@ const Header = () => {
         <Link to={"/"}>
           <button>CHARACTERS</button>
         </Link>
-        <Link to={"/"}>
+        <Link to={"/favorites"}>
           <button>FAVORITES</button>
         </Link>
       </div>

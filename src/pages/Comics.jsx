@@ -14,6 +14,14 @@ const Comics = () => {
   const [favComicTab, setFavComicTab] = useState(
     favComicCookie ? favComicCookie : null
   );
+  const handleFavComic = (id) => {
+    if (!favComicCookie) {
+      Cookies.set("favComic", id, { expires: 7 });
+    } else {
+      Cookies.set("favComic", favComicCookie + "," + id, { expires: 7 });
+      setFavComicTab(favComicCookie);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,8 +29,8 @@ const Comics = () => {
         const response = await axios.get(
           ` http://localhost:3000/comics/?title=${search}&page=${page}`
         );
-        console.log(search);
-        console.log(response.data.results);
+        // console.log(search);
+        // console.log(response.data.results);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -33,14 +41,6 @@ const Comics = () => {
     fetchData();
   }, [search, page, favComicTab]);
 
-  const handleFavComic = (id) => {
-    if (!favComicCookie) {
-      Cookies.set("favComic", id, { expires: 7 });
-    } else {
-      Cookies.set("favComic", favComicCookie + "," + id, { expires: 7 });
-      setFavComicTab(favComicCookie);
-    }
-  };
   console.log(favComicTab);
   return isLoading ? (
     <p>Loading...</p>
