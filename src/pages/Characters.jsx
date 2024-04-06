@@ -10,8 +10,11 @@ const Characters = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [characterTab, setCharacterTab] = useState([]);
-  console.log(characterTab);
+
+  const favCharacCookie = Cookies.get("favCharac");
+  const [favCharacTab, setFavCharacTab] = useState(
+    favCharacCookie ? favCharacCookie : null
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +31,17 @@ const Characters = () => {
       }
     };
     fetchData();
-  }, [search, page, characterTab]);
+  }, [search, page, favCharacTab]);
+
+  const handleFavComic = (id) => {
+    if (!favCharacCookie) {
+      Cookies.set("favCharac", id, { expires: 7 });
+    } else {
+      Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
+      setFavCharacTab(favCharacCookie);
+    }
+  };
+
   // const id =
   // const handleClick = ({character._id})=>{
   //     if(!characterTab.includes(character._id)){
@@ -65,44 +78,30 @@ const Characters = () => {
               "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" ? (
             ""
           ) : (
-            <Link
-              to={`/comics/character/${character._id}`}
-              className="characterCard"
-              style={{
-                backgroundImage: `url(${
-                  character.thumbnail.path + "/portrait_uncanny.jpg"
-                })`,
-              }}
-            >
-              <div
-                onClick={() => {
-                  const newCharacterTab = [...characterTab];
-
-                  newCharacterTab.push(character._id);
-                  setCharacterTab(newCharacterTab);
-                  Cookies.set("characterId", JSON.stringify(characterTab), {
-                    expires: 15,
-                  });
-
-                  // Permet de créer ou de modifier la valeur d'un cookie et de définir une date d'expiration
+            <div className="characterCard">
+              <Link
+                className="cardImg"
+                to={`/comics/character/${character._id}`}
+                style={{
+                  backgroundImage: `url(${
+                    character.thumbnail.path + "/portrait_uncanny.jpg"
+                  })`,
                 }}
-                className="likeImg"
               >
-                <button>
-                  <img
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                    src={LikeImg}
-                    alt=""
-                  />
-                </button>
-              </div>
-              <div className="bottomCard">
-                {/* <h2>{character.description}</h2> */}
-                <h1>{character.name}</h1>
-              </div>
-            </Link>
+                <div className="bottomCard">
+                  {/* <h2>{character.description}</h2> */}
+                  <h1>{character.name}</h1>
+                </div>
+              </Link>{" "}
+              <button
+                className="likeImg"
+                onClick={() => {
+                  handleFavComic(character._id);
+                }}
+              >
+                <img src={LikeImg} alt="" />
+              </button>
+            </div>
           );
         })}
       </div>

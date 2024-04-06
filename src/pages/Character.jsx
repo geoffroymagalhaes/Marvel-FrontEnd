@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Character = () => {
+const Character = ({ comic }) => {
   const params = useParams();
   // console.log(params);
 
@@ -26,10 +26,22 @@ const Character = () => {
     <p>Chargement ...</p>
   ) : (
     <section>
-      <h1>{data.name}</h1>
-      <h2>{data.description}</h2>
+      <div
+        className="heroComicsCharacter"
+        style={{
+          backgroundImage: `url(${
+            data.thumbnail.path + "/portrait_uncanny.jpg"
+          })`,
+        }}
+      >
+        <div className="heroComicsCharacterBackground">
+          <h1>{data.name}</h1>
+          <h2>{data.description}</h2>
+        </div>
+      </div>
+      <h1></h1>
+      <h2></h2>
 
-      <img src={data.thumbnail.path + "/portrait_fantastic.jpg"} alt="" />
       {data.comics.map((comic) => {
         return (
           <div>
