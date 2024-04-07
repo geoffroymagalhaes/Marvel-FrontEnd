@@ -1,7 +1,27 @@
-import Logo from "../assets/img/Logo.png";
+// ---import-packages
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useState } from "react";
+
+// ---import-img-video--
+import Logo from "../assets/img/Logo.png";
 import Video from "../assets/video/video.mp4";
+
+// ---import-components--
+import ModalButtonLogin from "./ModalButtonLogin";
+import ModalButtonSignin from "./ModalButtonSignin";
+
 const Header = () => {
+  const [token, setToken] = useState(Cookies.get("vinted-token") || null);
+  const handleToken = (token) => {
+    if (token) {
+      Cookies.set("marvel-token", token, { expires: 15 });
+      setToken(token);
+    } else {
+      Cookies.remove("marvel-token");
+      setToken(null);
+    }
+  };
   return (
     <section>
       <header className="header">
@@ -19,6 +39,7 @@ const Header = () => {
       </header>
 
       <div className="headerLink">
+        <ModalButtonLogin handleToken={handleToken} token={token} />
         <Link to={"/comics"}>
           <button>COMICS</button>
         </Link>
@@ -28,6 +49,7 @@ const Header = () => {
         <Link to={"/favorites"}>
           <button>FAVORITES</button>
         </Link>
+        <ModalButtonSignin handleToken={handleToken} token={token} />
       </div>
     </section>
   );

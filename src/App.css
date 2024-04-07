@@ -379,3 +379,49 @@ video {
   letter-spacing: 18px;
   padding: 20px;
 }
+/* ---modal--- */
+.modalBackground {
+  background-color: #202020;
+  opacity: 0.75;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+}
+.modalContent {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+  position: fixed;
+  z-index: 5;
+  top: calc(100% / 3);
+  left: 40%;
+  transform: translateX(-50%);
+  transform: translateY(-50%);
+}
+.Xbutton {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background-color: #eb1d23;
+  color: white;
+  margin: 5px;
+  border-radius: 5px;
+}
+.formLogin {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+.formLogin input {
+  width: 250px;
+  height: 30px;
+  color: #202020;
+}
+.formLogin h1 {
+  text-align: center;
+}
