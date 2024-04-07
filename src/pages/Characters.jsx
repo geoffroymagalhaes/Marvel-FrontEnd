@@ -5,24 +5,11 @@ import Cookies from "js-cookie";
 
 import LikeImg from "../assets/img/noun.png";
 
-const Characters = ({ handleFavCharac, favCharacTab }) => {
+const Characters = ({ handleFavCharac, favCharacTab, removeFavCharac }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-
-  // const favCharacCookie = Cookies.get("favCharac");
-  // const [favCharacTab, setFavCharacTab] = useState(
-  //   favCharacCookie ? favCharacCookie : null
-  // );
-  // const handleFavCharac = (id) => {
-  //   if (!favCharacCookie) {
-  //     Cookies.set("favCharac", id, { expires: 7 });
-  //   } else {
-  //     Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
-  //     setFavCharacTab(favCharacCookie);
-  //   }
-  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,15 +27,6 @@ const Characters = ({ handleFavCharac, favCharacTab }) => {
     };
     fetchData();
   }, [search, page, favCharacTab]);
-
-  // console.log(favCharacCookie);
-
-  // const id =
-  // const handleClick = ({character._id})=>{
-  //     if(!characterTab.includes(character._id)){
-  //       setCharacterTab([...characterTab,character._id])
-  //     }
-  //    }
 
   return isLoading ? (
     <p>Loading...</p>
@@ -94,14 +72,26 @@ const Characters = ({ handleFavCharac, favCharacTab }) => {
                   <h1>{character.name}</h1>
                 </div>
               </Link>
-              <button
-                className="likeImg"
-                onClick={() => {
-                  handleFavCharac(character._id);
-                }}
-              >
-                <img src={LikeImg} alt="" />
-              </button>
+              {favCharacTab.indexOf(character._id) === -1 && (
+                <button
+                  className="likeImg  "
+                  onClick={() => {
+                    handleFavCharac(character._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              )}
+              {favCharacTab.indexOf(character._id) !== -1 && (
+                <button
+                  className="likeImg  active"
+                  onClick={() => {
+                    removeFavCharac(character._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              )}
             </div>
           );
         })}

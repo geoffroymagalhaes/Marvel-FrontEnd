@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import { useState } from "react";
+
 import Cookies from "js-cookie";
 
 // pages
@@ -12,38 +13,36 @@ import Favorites from "./pages/Favorites";
 import Header from "./components/Header";
 
 function App() {
-  // const favCharacCookie = Cookies.get("favCharac");
+  useEffect(() => {
+    if (Cookies.get("favComic")) {
+      const favComicCookie = JSON.parse(Cookies.get("favComic"));
+      setFavComicTab(favComicCookie);
+    }
+    if (Cookies.get("favCharac")) {
+      const favCharacCookie = JSON.parse(Cookies.get("favCharac"));
+      setFavCharacTab(favCharacCookie);
+    }
+  }, []);
+
   const [favCharacTab, setFavCharacTab] = useState([]);
   console.log(favCharacTab);
 
   const [favComicTab, setFavComicTab] = useState([]);
   console.log(favComicTab);
 
-  // const [addOrRemove, setAddOrRemove] = useState(false);
-  // console.log(addOrRemove);
-
-  // const handleFavCharac = (id) => {
-  //   if (!favCharacCookie) {
-  //     Cookies.set("favCharac", id, { expires: 7 });
-  //   } else {
-  //     Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
-  //     setFavCharacTab(favCharacCookie);
-  //   }
-  // };
-
-  // const handleAddOrRemoveCharac = (id) => {
-  //   // console.log(favComicTab.indexOf(id));
-  //   if (favCharacTab.indexOf(id) === -1) {
-  //     setAddOrRemove(true);
-  //   } else {
-  //     setAddOrRemove(false);
-  //   }
-  // };
   const removeFavComic = (id) => {
     let newFavComicTab = [...favComicTab];
     newFavComicTab.splice(favComicTab.indexOf(id), 1);
     setFavComicTab(newFavComicTab);
     Cookies.set("favComic", JSON.stringify(newFavComicTab), {
+      expires: 7,
+    });
+  };
+  const removeFavCharac = (id) => {
+    let newFavCharacTab = [...favCharacTab];
+    newFavCharacTab.splice(favCharacTab.indexOf(id), 1);
+    setFavCharacTab(newFavCharacTab);
+    Cookies.set("favComic", JSON.stringify(newFavCharacTab), {
       expires: 7,
     });
   };
@@ -72,10 +71,9 @@ function App() {
           path="/"
           element={
             <Characters
-              // favCharacCookie={favCharacCookie}
               favCharacTab={favCharacTab}
-              // setFavCharacTab={setFavCharacTab}
               handleFavCharac={handleFavCharac}
+              removeFavCharac={removeFavCharac}
             />
           }
         />
@@ -83,17 +81,26 @@ function App() {
           path="/comics"
           element={
             <Comics
-              // handleAddOrRemove={handleAddOrRemove}
-              // addOrRemove={addOrRemove}
-              handleFavComic={handleFavComic}
               favComicTab={favComicTab}
-              setFavComicTab={setFavComicTab}
+              handleFavComic={handleFavComic}
               removeFavComic={removeFavComic}
             />
           }
         />
         <Route path="/comics/character/:id" element={<Character />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route
+          path="/favorites"
+          element={
+            <Favorites
+              favComicTab={favComicTab}
+              favCharacTab={favCharacTab}
+              handleFavCharac={handleFavCharac}
+              removeFavCharac={removeFavCharac}
+              handleFavComic={handleFavComic}
+              removeFavComic={removeFavComic}
+            />
+          }
+        />
       </Routes>
     </Router>
   );
