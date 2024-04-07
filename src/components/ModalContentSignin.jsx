@@ -49,17 +49,18 @@ const ModalContent = ({ closeModal, handleToken, token }) => {
           x
         </button>
         <article>
-          <h1>Signup</h1>
-          <form onSubmit={handleSubmit}>
+          <form className="formLogin" onSubmit={handleSubmit}>
+            <h1>Signup</h1> <h4>Username</h4>
             <input
               type="text"
-              placeholder="Nom d'utilisateur"
+              placeholder="Username"
               name="username"
               value={username}
               onChange={(event) => {
                 setUsername(event.target.value);
               }}
             />
+            <h4>E-mail</h4>
             <input
               type="email"
               placeholder="Email"
@@ -69,6 +70,7 @@ const ModalContent = ({ closeModal, handleToken, token }) => {
                 setEmail(event.target.value);
               }}
             />
+            <h4>Password</h4>
             <input
               type="password"
               placeholder="Mot de passe"
@@ -78,7 +80,6 @@ const ModalContent = ({ closeModal, handleToken, token }) => {
                 setPassword(event.target.value);
               }}
             />
-
             <input type="submit" value="Submit" />
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           </form>
