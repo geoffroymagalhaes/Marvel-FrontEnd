@@ -47,7 +47,7 @@ const Favorites = ({
   return isLoading || isLoading2 ? (
     <p>Loading...</p>
   ) : (
-    <section>
+    <section className="favorites">
       <div className="heroFavorites">
         <div className="heroFavoritesBackground">
           <h1>FAVORITES</h1>

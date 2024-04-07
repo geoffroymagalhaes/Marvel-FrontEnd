@@ -87,7 +87,16 @@ function App() {
             />
           }
         />
-        <Route path="/comics/character/:id" element={<Character />} />
+        <Route
+          path="/comics/character/:id"
+          element={
+            <Character
+              favComicTab={favComicTab}
+              handleFavComic={handleFavComic}
+              removeFavComic={removeFavComic}
+            />
+          }
+        />
         <Route
           path="/favorites"
           element={

@@ -2,7 +2,9 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Character = ({ comic }) => {
+import LikeImg from "../assets/img/noun.png";
+
+const Character = ({ comic, favComicTab, removeFavComic }) => {
   const params = useParams();
   // console.log(params);
 
@@ -40,18 +42,58 @@ const Character = ({ comic }) => {
         </div>
       </div>
 
-      {data.comics.map((comic) => {
-        return (
-          <div>
-            <h3>{comic.title}</h3>
-            <h4>{comic.description}</h4>
-            <img
-              src={comic.thumbnail.path + "/portrait_fantastic.jpg"}
-              alt=""
-            />
-          </div>
-        );
-      })}
+      <div className="comicsContainer">
+        {data.comics.map((comic) => {
+          return comic.thumbnail.extension === "gif" ||
+            comic.thumbnail.path ===
+              "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" ? (
+            ""
+          ) : (
+            <article
+              className="comicCard"
+              style={{
+                backgroundImage: `url(${
+                  comic.thumbnail.path + "/portrait_uncanny.jpg"
+                })`,
+              }}
+            >
+              {favComicTab.indexOf(comic._id) === -1 && (
+                <button
+                  className="likeImg  "
+                  onClick={() => {
+                    handleFavComic(comic._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              )}
+              {favComicTab.indexOf(comic._id) !== -1 && (
+                <button
+                  className="likeImg  active"
+                  onClick={() => {
+                    removeFavComic(comic._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              )}
+              {/* )} */}
+
+              {/* <img
+                src={comic.thumbnail.path + "/portrait_fantastic.jpg"}
+                alt=""
+              /> */}
+              {/* <h1>{comic.title}</h1>
+              <h2>{comic.description}</h2> */}
+              <div className="comicInfo">
+                {" "}
+                <h1>{comic.title}</h1>
+                <h2>{comic.description}</h2>
+              </div>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 };

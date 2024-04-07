@@ -67,11 +67,16 @@ const Characters = ({ handleFavCharac, favCharacTab, removeFavCharac }) => {
                   })`,
                 }}
               >
+                <div className="infoCharac">
+                  {" "}
+                  <h2>{character.description}</h2>
+                </div>
+
                 <div className="bottomCard">
-                  {/* <h2>{character.description}</h2> */}
                   <h1>{character.name}</h1>
                 </div>
               </Link>
+
               {favCharacTab.indexOf(character._id) === -1 && (
                 <button
                   className="likeImg  "

@@ -92,8 +92,11 @@ const Comics = ({ favComicTab, handleFavComic, removeFavComic }) => {
                 src={comic.thumbnail.path + "/portrait_fantastic.jpg"}
                 alt=""
               /> */}
-              {/* <h1>{comic.title}</h1>
-              <h2>{comic.description}</h2> */}
+              <div className="comicInfo">
+                {" "}
+                <h1>{comic.title}</h1>
+                <h2>{comic.description}</h2>
+              </div>
             </article>
           );
         })}
