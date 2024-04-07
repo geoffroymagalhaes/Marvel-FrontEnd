@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 import LikeImg from "../assets/img/noun.png";
 
-const Characters = ({ favCharacCookie, favCharacTab, setFavCharacTab }) => {
+const Characters = ({ handleFavCharac, favCharacTab }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -15,14 +15,14 @@ const Characters = ({ favCharacCookie, favCharacTab, setFavCharacTab }) => {
   // const [favCharacTab, setFavCharacTab] = useState(
   //   favCharacCookie ? favCharacCookie : null
   // );
-  const handleFavCharac = (id) => {
-    if (!favCharacCookie) {
-      Cookies.set("favCharac", id, { expires: 7 });
-    } else {
-      Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
-      setFavCharacTab(favCharacCookie);
-    }
-  };
+  // const handleFavCharac = (id) => {
+  //   if (!favCharacCookie) {
+  //     Cookies.set("favCharac", id, { expires: 7 });
+  //   } else {
+  //     Cookies.set("favCharac", favCharacCookie + "," + id, { expires: 7 });
+  //     setFavCharacTab(favCharacCookie);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +41,7 @@ const Characters = ({ favCharacCookie, favCharacTab, setFavCharacTab }) => {
     fetchData();
   }, [search, page, favCharacTab]);
 
-  console.log(favCharacCookie);
+  // console.log(favCharacCookie);
 
   // const id =
   // const handleClick = ({character._id})=>{

@@ -4,24 +4,29 @@ import Cookies from "js-cookie";
 
 import LikeImg from "../assets/img/noun.png";
 
-const Comics = () => {
+const Comics = ({
+  favComicTab,
+  handleFavComic,
+  setFavComicTab,
+  removeFavComic,
+}) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  const favComicCookie = Cookies.get("favComic");
-  const [favComicTab, setFavComicTab] = useState(
-    favComicCookie ? favComicCookie : null
-  );
-  const handleFavComic = (id) => {
-    if (!favComicCookie) {
-      Cookies.set("favComic", id, { expires: 7 });
-    } else {
-      Cookies.set("favComic", favComicCookie + "," + id, { expires: 7 });
-      setFavComicTab(favComicCookie);
-    }
-  };
+  // const favComicCookie = Cookies.get("favComic");
+  // const [favComicTab, setFavComicTab] = useState(
+  //   favComicCookie ? favComicCookie : null
+  // );
+  // const handleFavComic = (id) => {
+  //   if (!favComicCookie) {
+  //     Cookies.set("favComic", id, { expires: 7 });
+  //   } else {
+  //     Cookies.set("favComic", favComicCookie + "," + id, { expires: 7 });
+  //     setFavComicTab(favComicCookie);
+  //   }
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,15 +84,55 @@ const Comics = () => {
                 })`,
               }}
             >
-              <div
-                onClick={() => {
-                  handleFavComic(comic._id);
-                  // Permet de créer ou de modifier la valeur d'un cookie et de définir une date d'expiration
-                }}
-                className="likeImg"
-              >
-                <img src={LikeImg} alt="" />
-              </div>
+              {/* <button
+                  className="likeImg active"
+                  onClick={() => {
+                    // handleFavComic(comic._id);
+                    Cookies.get("favComic");
+                    let favoritesCookie = JSON.parse(Cookies.get("favComic"));
+                    favoritesCookie = favoritesCookie.splice(
+                      favoritesCookie.indexOf(comic._id)
+                    );
+                    setFavComicTab(favoritesCookie);
+                    // Cookies.set("favComic", JSON.stringify(favComicTab), {
+                    //   expires: 7,
+                    // });
+                    // handleAddOrRemove(comic._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              ) : ( */}
+              {favComicTab.indexOf(comic._id) === -1 && (
+                <button
+                  className="likeImg  "
+                  onClick={() => {
+                    handleFavComic(comic._id);
+                    // handleAddOrRemove(comic._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              )}
+              {favComicTab.indexOf(comic._id) !== -1 && (
+                <button
+                  className="likeImg  active"
+                  onClick={() => {
+                    removeFavComic(comic._id);
+                    // favComicTab.splice(favComicTab.indexOf(comic._id), 1);
+                    // setFavComicTab(favComicTab);
+                    // Cookies.set("favComic", JSON.stringify(favComicTab), {
+                    //   expires: 7,
+                    // });
+                    // handleFavComic(comic._id);
+                    // handleAddOrRemove(comic._id);
+                  }}
+                >
+                  <img src={LikeImg} alt="" />
+                </button>
+              )}
+              {/* )} */}
+
               {/* <img
                 src={comic.thumbnail.path + "/portrait_fantastic.jpg"}
                 alt=""
