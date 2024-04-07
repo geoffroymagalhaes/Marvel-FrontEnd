@@ -14,7 +14,7 @@ const Comics = ({ favComicTab, handleFavComic, removeFavComic }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ` http://localhost:3000/comics/?title=${search}&page=${page}`
+          ` https://site--marvel-backend--tvp4vjmpy6zn.code.run/comics/?title=${search}&page=${page}`
         );
         // console.log(search);
         // console.log(response.data.results);

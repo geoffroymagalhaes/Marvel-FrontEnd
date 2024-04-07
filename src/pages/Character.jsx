@@ -15,7 +15,7 @@ const Character = ({ comic, favComicTab, removeFavComic }) => {
     // console.log("useEffect");
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:3000/comics/character/${params.id}`
+        `https://site--marvel-backend--tvp4vjmpy6zn.code.run/comics/character/${params.id}`
       );
       // console.log(response.data);
       setData(response.data);

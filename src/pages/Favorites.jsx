@@ -22,7 +22,9 @@ const Favorites = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(` http://localhost:3000/comics`);
+        const response = await axios.get(
+          ` https://site--marvel-backend--tvp4vjmpy6zn.code.run/comics`
+        );
         console.log(data);
         setData(response.data);
         setIsLoading(false);
@@ -34,7 +36,9 @@ const Favorites = ({
 
     const fetchData2 = async () => {
       try {
-        const response = await axios.get(` http://localhost:3000`);
+        const response = await axios.get(
+          ` https://site--marvel-backend--tvp4vjmpy6zn.code.run`
+        );
         console.log(data2);
         setData2(response.data);
         setIsLoading2(false);

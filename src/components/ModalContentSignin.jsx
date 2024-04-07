@@ -16,11 +16,14 @@ const ModalContent = ({ closeModal, handleToken, token }) => {
     try {
       setErrorMessage("");
 
-      const response = await axios.post("http://localhost:3000/user/signup", {
-        email: email,
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://site--marvel-backend--tvp4vjmpy6zn.code.run/user/signup",
+        {
+          email: email,
+          username: username,
+          password: password,
+        }
+      );
       console.log(response.data);
 
       handleToken(response.data.token);

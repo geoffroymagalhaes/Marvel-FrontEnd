@@ -10,10 +10,13 @@ const ModalContent = ({ closeModal, token, handleToken }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/user/login", {
-        email: email,
-        password: password,
-      });
+      const response = await axios.post(
+        "https://site--marvel-backend--tvp4vjmpy6zn.code.run/user/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
       console.log(response.data);
       handleToken(response.data.token);
       navigate("/");

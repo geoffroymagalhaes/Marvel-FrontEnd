@@ -15,7 +15,7 @@ const Characters = ({ handleFavCharac, favCharacTab, removeFavCharac }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          ` http://localhost:3000/?name=${search}&page=${page}`
+          ` https://site--marvel-backend--tvp4vjmpy6zn.code.run/?name=${search}&page=${page}`
         );
 
         // console.log(response.data.results);
